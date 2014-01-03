@@ -145,7 +145,7 @@ if [ $# -eq 0 ]; then
 	exit $State_unknown
 
 elif [ $# -ge 1 ]; then
-	echo "$1" | egrep -q "\-."
+	echo "$1" | $Egrep -q "\-."
 	if [ $? -ne 0 ]; then
 		echo "$0 requires an option"
 		print_help
@@ -184,7 +184,7 @@ Index=0
 Match=0
 
 while [ $Index -lt $Tot ]; do
-	echo ${AvailDistricts[$Index]} | egrep -x "$District" &> /dev/null
+	echo ${AvailDistricts[$Index]} | $Egrep -x "$District" &> /dev/null
 	if [ $? -eq 0 ]; then
 		Match=1
 		break
@@ -201,10 +201,10 @@ fi
 ### Main ###
 
 # Fetch the warning page
-Data=`curl -s http://www.smhi.se/vadret/vadret-i-sverige/Varningar/varning_tabell_n1_sv.htm`
+Data=`$Curl -s http://www.smhi.se/vadret/vadret-i-sverige/Varningar/varning_tabell_n1_sv.htm`
 
 # First we must replace all åäö with their HTML equivalent
-HtmlDist=`echo $District | sed '{
+HtmlDist=`echo $District | $Sed '{
 s/å/\&aring\;/g
 s/Å/\&Aring\;/g
 s/ä/\&auml\;/g
@@ -214,17 +214,17 @@ s/Ö/\&Ouml\;/g
 }'`
 
 # Get the line number for the current district in the HTML-file and add one line to it
-LineNr=`echo "$Data" | sed -n "/$HtmlDist/="`
+LineNr=`echo "$Data" | $Sed -n "/$HtmlDist/="`
 ((LineNr++))
 
 # Read the warning message (for example kuling, orkan, åska)
-WarnMsg=`echo "$Data" | sed -n "${LineNr}p" | egrep -o "Varning klass [0-3] .*" | \
-sed 's/\(.*\).........../\1/' | \
-awk '{print substr($0, index($0,$4))}'` 
+WarnMsg=`echo "$Data" | $Sed -n "${LineNr}p" | $Egrep -o "Varning klass [0-3] .*" | \
+$Sed 's/\(.*\).........../\1/' | \
+$Awk '{print substr($0, index($0,$4))}'` 
 
 # Get the current warning class (1, 2 and 3)
-Class=`echo "$Data" | sed -n "${LineNr}p" | egrep -o "Varning klass [0-3]" \
-| awk '{ print $3 }'`
+Class=`echo "$Data" | $Sed -n "${LineNr}p" | $Egrep -o "Varning klass [0-3]" \
+| $Awk '{ print $3 }'`
 
 # Chech the current warning class issued for the district
 if [ -z $Class ]; then
