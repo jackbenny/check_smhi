@@ -1,4 +1,13 @@
 2014-01-03
 Version 0.1 - First release of the plugin
 
+2013-01-04
+Version 0.2 - Fixed two bugs, whereas one important
+		1. In case there more than one wheater alert for the specified
+		   region, the script would bug out. Fixed by adding 'head -n1'
+		   so that it always only shows the first warning issued.
+		2. In case there were swedish characters (åäö) in the warning
+		   message they would output as their HTML-equivalent. Fixed
+		   with another sed substitue command.
+
 

@@ -21,14 +21,14 @@
 ################################################################################
 
 # check_smhi
-Version="0.1"
+Version="0.2"
 Author="Jack-Benny Persson (jack-benny@cyberinfo.se)"
 
 # Binaries
 Which="/usr/bin/which"
 # Binaries entered in the list will be avalible to the script as variables with
 # the first letter uppercase
-Binaries=(sed awk egrep printf curl)
+Binaries=(sed awk egrep printf curl head)
 
 # Variables
 District=""
@@ -214,13 +214,20 @@ s/Ö/\&Ouml\;/g
 }'`
 
 # Get the line number for the current district in the HTML-file and add one line to it
-LineNr=`echo "$Data" | $Sed -n "/$HtmlDist/="`
+LineNr=`echo "$Data" | $Sed -n "/$HtmlDist/=" | $Head -n1`
 ((LineNr++))
 
 # Read the warning message (for example kuling, orkan, åska)
 WarnMsg=`echo "$Data" | $Sed -n "${LineNr}p" | $Egrep -o "Varning klass [0-3] .*" | \
 $Sed 's/\(.*\).........../\1/' | \
-$Awk '{print substr($0, index($0,$4))}'` 
+$Awk '{print substr($0, index($0,$4))}' | $Sed '{
+s/\&aring\;/å/g
+s/\&Aring\;/Å/g
+s/\&auml\;/ä/g
+s/\&Auml\;/Å/g
+s/\&ouml\;/ö/g
+s/\&Ouml\;/Ö/g
+}'` 
 
 # Get the current warning class (1, 2 and 3)
 Class=`echo "$Data" | $Sed -n "${LineNr}p" | $Egrep -o "Varning klass [0-3]" \
