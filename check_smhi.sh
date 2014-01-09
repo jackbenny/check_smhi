@@ -21,7 +21,7 @@
 ################################################################################
 
 # check_smhi
-Version="0.2"
+Version="0.3"
 Author="Jack-Benny Persson (jack-benny@cyberinfo.se)"
 
 # Binaries
@@ -59,8 +59,8 @@ AvailDistricts=(
 "Jämtlands län, Jämtlandsfjällen"
 "Västerbottens län, södra Lapplandsfjällen"
 "Norrbottens län, norra Lapplandsfjällen"
-"Skåne län utom österlen"
-"Skåne län, österlen"
+"Skåne län utom Österlen"
+"Skåne län, Österlen"
 "Blekinge län"
 "Hallands län"
 "Kronobergs län, västra delen"
