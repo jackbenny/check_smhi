@@ -113,7 +113,7 @@ print_help()
 	Options:
 	-D
 	   District to check for wheather alerts.
-	   NOTE: Districts must be quoted, such as "Skåne län utom österlen"
+	   NOTE: Districts must be quoted, such as "Skåne län utom Österlen"
 	-P
 	   Print a list with all the avaliable districts.
 	-h
