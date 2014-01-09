@@ -21,7 +21,7 @@
 ################################################################################
 
 # check_smhi
-Version="0.3"
+Version="0.4"
 Author="Jack-Benny Persson (jack-benny@cyberinfo.se)"
 
 # Binaries
@@ -195,6 +195,7 @@ done
 if [ $Match -eq 0 ]; then
 	echo "District $District does not exist"
 	print_help
+	exit $State_unknown
 fi
 
 
