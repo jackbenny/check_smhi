@@ -10,4 +10,6 @@ Version 0.2 - Fixed two bugs, whereas one important
 		   message they would output as their HTML-equivalent. Fixed
 		   with another sed substitue command.
 
-
+2013-01-09
+Version 0.3 - SMHI has changed österlen to Österlen in the text. Updated this
+	      in the hardcoded region/district names.
